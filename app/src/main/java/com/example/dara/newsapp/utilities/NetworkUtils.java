@@ -26,7 +26,7 @@ public class NetworkUtils {
     private static final String PARAM_ORDER_BY = "order-by";
     private static final String VALUE_ORDER_BY = "newest";
     private static final String PARAM_PAGE_SIZE = "page-size";
-    private static final String VALUE_PAGE_SIZE = "50";
+    private static final String VALUE_PAGE_SIZE = "20";
 
     /**
      * Returns query url using the content endpoint

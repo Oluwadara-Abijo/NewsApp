@@ -1,5 +1,7 @@
 package com.example.dara.newsapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -51,7 +53,17 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
 
     @Override
     public void onItemClickListener(News newsItem) {
+        String webUrl = newsItem.getmWebUrl();
+        openNewsWebPage(webUrl);
 
+    }
+
+    public void openNewsWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     @NonNull
@@ -77,4 +89,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
     public void onLoaderReset(@NonNull Loader<List<News>> loader) {
 
     }
+
+
 }

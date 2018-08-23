@@ -17,13 +17,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
     //List object that holds movie data
     private final List<News> mNewsData;
 
+    private final ItemClickListener mItemClickListener;
+
     //Constructor
     public NewsAdapter(List<News> data, ItemClickListener clickListener) {
         mNewsData = data;
         mItemClickListener = clickListener;
     }
-
-    private final ItemClickListener mItemClickListener;
 
     //Interface for click handling
     public interface ItemClickListener {
@@ -67,6 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
             mSectionNameTextView = itemView.findViewById(R.id.tv_section_name);
             mWebTitleTextView = itemView.findViewById(R.id.tv_web_title);
             mPublishedDateTextView = itemView.findViewById(R.id.tv_publication_date);
+            itemView.setOnClickListener(this);
         }
 
         @Override
