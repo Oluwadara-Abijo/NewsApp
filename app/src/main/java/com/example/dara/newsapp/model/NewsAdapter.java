@@ -62,7 +62,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
         final TextView mPublishedDateTextView;
 
         //Class constructor
-        public NewsAdapterViewHolder(View itemView) {
+        NewsAdapterViewHolder(View itemView) {
             super(itemView);
             mSectionNameTextView = itemView.findViewById(R.id.tv_section_name);
             mWebTitleTextView = itemView.findViewById(R.id.tv_web_title);
