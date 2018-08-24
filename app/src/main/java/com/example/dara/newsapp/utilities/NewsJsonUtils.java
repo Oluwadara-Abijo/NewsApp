@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class NewsJsonUtils {
+class NewsJsonUtils {
 
     /**
      * The date string returned in the json response is in DateTime format

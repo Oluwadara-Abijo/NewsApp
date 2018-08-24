@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        startLoading();
+
+    }
+
+    private void startLoading () {
         //Start loading
         if (isNetworkAvailable()) {
             getSupportLoaderManager().initLoader(0, null, this);
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
             showError();
             mErrorMessageTextView.setText(R.string.error_internet_connection);
         }
-
     }
 
     //Checks for internet connectivity
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
         mErrorMessageTextView.setVisibility(View.GONE);
     }
 
-    public void showError() {
+    private void showError() {
         mRecyclerView.setVisibility(View.INVISIBLE);
         mErrorMessageTextView.setVisibility(View.VISIBLE);
     }
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
 
     }
 
-    public void openNewsWebPage(String url) {
+    private void openNewsWebPage(String url) {
         Uri webPage = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
         if (intent.resolveActivity(getPackageManager()) != null) {

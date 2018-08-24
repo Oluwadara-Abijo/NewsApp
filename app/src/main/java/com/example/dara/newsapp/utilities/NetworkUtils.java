@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-public class NetworkUtils {
+class NetworkUtils {
 
     //The Guardian endpoint url for content
     private static final String ENDPOINT_URL = "https://content.guardianapis.com/search";
