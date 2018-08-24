@@ -1,6 +1,9 @@
 package com.example.dara.newsapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,9 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.dara.newsapp.model.News;
 import com.example.dara.newsapp.model.NewsAdapter;
@@ -24,9 +27,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemClickListener,
         LoaderManager.LoaderCallbacks<List<News>> {
 
+    //UI Elements
     private RecyclerView mRecyclerView;
-
     private ProgressBar mLoadingIndicator;
+    private TextView mErrorMessageTextView;
 
     private NewsAdapter mAdapter;
 
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
 
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
+        mErrorMessageTextView = findViewById(R.id.tv_error_message);
+
         List<News> mList = new ArrayList<>();
 
         mAdapter = new NewsAdapter(mList, this);
@@ -48,7 +54,34 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        getSupportLoaderManager().initLoader(0, null, this);
+        //Start loading
+        if (isNetworkAvailable()) {
+            getSupportLoaderManager().initLoader(0, null, this);
+        } else {
+            mLoadingIndicator.setVisibility(View.GONE);
+            showError();
+            mErrorMessageTextView.setText(R.string.error_internet_connection);
+        }
+
+    }
+
+    //Checks for internet connectivity
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    private void showData() {
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mErrorMessageTextView.setVisibility(View.GONE);
+    }
+
+    public void showError() {
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mErrorMessageTextView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -59,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
     }
 
     public void openNewsWebPage(String url) {
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        Uri webPage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
@@ -69,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
     @NonNull
     @Override
     public Loader<List<News>> onCreateLoader(int id, @Nullable Bundle args) {
-
-        mLoadingIndicator.setVisibility(View.VISIBLE);
         return new NewsLoader(this);
     }
 
@@ -78,9 +109,11 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
     public void onLoadFinished(@NonNull Loader<List<News>> loader, List<News> data) {
         mLoadingIndicator.setVisibility(View.GONE);
         if (data != null && !data.isEmpty()) {
-            Log.d(">>>>", "data" + data);
             mAdapter = new NewsAdapter(data, this);
             mRecyclerView.setAdapter(mAdapter);
+            showData();
+        } else {
+            showError();
         }
 
     }

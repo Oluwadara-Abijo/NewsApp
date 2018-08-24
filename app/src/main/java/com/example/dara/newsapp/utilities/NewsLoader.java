@@ -13,26 +13,30 @@ import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
+
     //Class constructor
     public NewsLoader(@NonNull Context context) {
         super(context);
+
     }
 
+    /**
+     * Invoked by the LoaderManager when the loader starts
+     */
     @Override
     protected void onStartLoading() {
         forceLoad();
+
     }
 
-
     /**
-     * Called to perform the actual load and return the result of the load operation
+     * Connects to the network and makes The Guardian API request on a background thread
+     *
      * @return A list of News objects
      */
-
     @Nullable
     @Override
     public List<News> loadInBackground() {
-
         String jsonResponse = null;
 
         URL queryUrl = NetworkUtils.buildQueryUrl();
@@ -45,4 +49,5 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
         return NewsJsonUtils.extractNewsFromJson(jsonResponse);
     }
+
 }
