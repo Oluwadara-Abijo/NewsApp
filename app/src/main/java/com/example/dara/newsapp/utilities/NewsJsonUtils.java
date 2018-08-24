@@ -8,10 +8,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NewsJsonUtils {
+
+    /**
+     * The date string returned in the json response is in DateTime format
+     * This method converts the DateTime string to a date string
+     * @param dateTime The DateTime string
+     * @return The date string of the news item
+     */
+    private static String simpleDate (String dateTime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateFormat.format(date);
+    }
 
     /**
      * Return a list of News objects from the Json response passed in
@@ -55,7 +76,8 @@ public class NewsJsonUtils {
                 String webUrl = currentNewsItem.optString("webUrl");
 
                 //Extract the publication date of the news item
-                String webPublicationDate = currentNewsItem.optString("webPublicationDate");
+                String dateTimeString = currentNewsItem.optString("webPublicationDate");
+                String webPublicationDate = simpleDate(dateTimeString);
 
                 //Add the news item to the list of news
                 newsList.add(new News(sectionName, webTitle, webUrl, webPublicationDate));
