@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="secondaryTextSize">12sp</dimen>
+    <dimen name="primaryTextSize">18sp</dimen>
+    <dimen name="margin18">8dp</dimen>
+    <dimen name="cardViewCornerRadius">4dp</dimen>
+    <dimen name="cardViewElevation">3dp</dimen>
+</resources>
