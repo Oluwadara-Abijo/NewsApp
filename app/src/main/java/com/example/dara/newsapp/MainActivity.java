@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
 
     }
 
-    private void startLoading () {
+    private void startLoading() {
         //Start loading
         if (isNetworkAvailable()) {
             getSupportLoaderManager().initLoader(0, null, this);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
 
     @Override
     public void onItemClickListener(News newsItem) {
-        String webUrl = newsItem.getmWebUrl();
+        String webUrl = newsItem.getWebUrl();
         openNewsWebPage(webUrl);
 
     }

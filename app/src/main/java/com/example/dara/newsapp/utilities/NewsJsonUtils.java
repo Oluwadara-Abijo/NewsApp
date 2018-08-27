@@ -20,10 +20,11 @@ class NewsJsonUtils {
     /**
      * The date string returned in the json response is in DateTime format
      * This method converts the DateTime string to a date string
+     *
      * @param dateTime The DateTime string
      * @return The date string of the news item
      */
-    private static String simpleDate (String dateTime) {
+    private static String simpleDate(String dateTime) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = null;
         try {

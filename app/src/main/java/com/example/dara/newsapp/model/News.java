@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 public class News implements Parcelable {
 
-    private String mSectionName;
+    private final String mSectionName;
 
-    private String mWebTitle;
+    private final String mWebTitle;
 
-    private String mWebUrl;
+    private final String mWebUrl;
 
-    private String mWebPublicationDate;
+    private final String mWebPublicationDate;
 
     //Constructor which creates a News object
     public News(String sectionName, String webTitle, String webUrl, String webPublicationdate) {
@@ -21,23 +21,23 @@ public class News implements Parcelable {
         mWebPublicationDate = webPublicationdate;
     }
 
-    public String getmSectionName() {
+    public String getSectionName() {
         return mSectionName;
     }
 
-    public String getmWebTitle() {
+    public String getWebTitle() {
         return mWebTitle;
     }
 
-    public String getmWebUrl() {
+    public String getWebUrl() {
         return mWebUrl;
     }
 
-    public String getmWebPublicationDate() {
+    public String getWebPublicationDate() {
         return mWebPublicationDate;
     }
 
-    protected News(Parcel in) {
+    private News(Parcel in) {
         mSectionName = in.readString();
         mWebTitle = in.readString();
         mWebUrl = in.readString();

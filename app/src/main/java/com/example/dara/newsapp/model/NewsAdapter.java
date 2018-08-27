@@ -42,9 +42,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
     @Override
     public void onBindViewHolder(@NonNull NewsAdapterViewHolder holder, int position) {
         News currentNewsItem = mNewsData.get(position);
-        holder.mSectionNameTextView.setText(currentNewsItem.getmSectionName());
-        holder.mWebTitleTextView.setText(currentNewsItem.getmWebTitle());
-        holder.mPublishedDateTextView.setText(currentNewsItem.getmWebPublicationDate());
+        holder.mSectionNameTextView.setText(currentNewsItem.getSectionName());
+        holder.mWebTitleTextView.setText(currentNewsItem.getWebTitle());
+        holder.mPublishedDateTextView.setText(currentNewsItem.getWebPublicationDate());
 
     }
 
